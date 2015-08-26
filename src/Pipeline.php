@@ -22,7 +22,7 @@ class Pipeline implements PipelineInterface
     {
         foreach ($stages as $stage) {
             if (!$stage instanceof StageInterface) {
-                throw new InvalidArgumentException('All stages should implement the '.StageInterface::class);
+                throw new InvalidArgumentException('All stages should implement the League\Pipeline\StageInterface');
             }
         }
 

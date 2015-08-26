@@ -2,32 +2,29 @@
 
 namespace spec\League\Pipeline;
 
-use InvalidArgumentException;
 use League\Pipeline\CallableStage;
 use League\Pipeline\Pipeline;
-use League\Pipeline\PipelineInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class PipelineSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(Pipeline::class);
-        $this->shouldHaveType(PipelineInterface::class);
+        $this->shouldHaveType('League\Pipeline\Pipeline');
+        $this->shouldHaveType('League\Pipeline\PipelineInterface');
     }
 
     function it_should_pipe_operation()
     {
         $operation = CallableStage::forCallable(function () {});
-        $this->pipe($operation)->shouldHaveType(PipelineInterface::class);
+        $this->pipe($operation)->shouldHaveType('League\Pipeline\PipelineInterface');
         $this->pipe($operation)->shouldNotBe($this);
     }
 
     function it_should_compose_pipelines()
     {
         $pipeline = new Pipeline();
-        $this->pipe($pipeline)->shouldHaveType(PipelineInterface::class);
+        $this->pipe($pipeline)->shouldHaveType('League\Pipeline\PipelineInterface');
         $this->pipe($pipeline)->shouldNotBe($this);
     }
 
@@ -49,6 +46,6 @@ class PipelineSpec extends ObjectBehavior
 
     function it_should_only_allow_operations_as_constructor_arguments()
     {
-        $this->shouldThrow(InvalidArgumentException::class)->during('__construct', [['fooBar']]);
+        $this->shouldThrow('InvalidArgumentException')->during('__construct', [['fooBar']]);
     }
 }
